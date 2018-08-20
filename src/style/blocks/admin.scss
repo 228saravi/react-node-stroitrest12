@@ -1,0 +1,121 @@
+html{
+    font-size: 16px;
+    @include desktop{
+        font-size: 16px;
+    }
+    @include laptop{
+        font-size: 15px;
+    }
+    @include tablets{
+        font-size: 14px;
+    }
+    @include phones{
+        font-size: 13px;
+    }
+}
+.admin{
+    display: flex;
+
+}
+.admin__left-block{
+    color: $white;
+    background-color: $blue;
+    flex-basis: 200px;
+    height: 100vh;
+}
+.admin__left-block{
+
+    height: 100vh;
+}
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.menu_panel{
+    display: flex;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.admin_line{
+    border: none; /* Убираем границу */
+    background-color: red; /* Цвет линии */
+    color: red; /* Цвет линии для IE6-7 */
+    height: 2px;
+}
+
+.menu__home{
+    background: #3b4c54;
+    border-left: 3px solid $red;
+   
+}
+.menu__home-icon{
+    @include fa-icon;
+    @extend .fas;
+    &:before{
+        font-size: 1.5rem;
+        padding: 10px;
+        content: fa-content($fa-var-home);
+     }
+}
+
+.menu__works-icon{
+    @include fa-icon;
+    @extend .fas;
+    &:before{
+        font-size: 1.5rem;
+        padding: 10px;
+        content: fa-content($fa-var-building);
+     }
+}
+
+.menu__jobs-icon{
+    @include fa-icon;
+    @extend .fas;
+    &:before{
+        font-size: 1.5rem;
+        padding: 10px;
+        content: fa-content($fa-var-briefcase);
+     }
+}
+
+////////////////////\\\\\\\\\\\\\\\\
+.admin__right-block{
+    flex: 1;
+    height: 100vh;
+    overflow: scroll;
+}
+.block{
+    display: none;
+}
+.block-menu__home{
+    
+    display: block;
+}
+.button-addJobs{
+    width: 50px;
+    height: 50px;
+    margin-left: 45%;
+    border-radius: 100%;
+    font-size: 2rem;
+    border: 0px solid;
+    background: $red;
+}
+.button-delete-list{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 0px solid;
+    background: $red;
+    margin-right: 5px;
+    
+    margin-top: 5px;
+
+}
+.list_head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

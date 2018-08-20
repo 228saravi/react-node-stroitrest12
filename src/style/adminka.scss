@@ -1,0 +1,14 @@
+@import "layout/_color";
+
+//icons
+@import "scss/fontawesome.scss";
+@import "scss/solid.scss";
+
+@import "layout/mixins.scss";
+@import "layout/setups";
+@import "layout/fonts";
+ 
+
+@import "blocks/preloader.scss";
+@import "blocks/admin.scss";
+@import "blocks/block_jobs.scss";
