@@ -1,0 +1,20 @@
+.mainBackground{
+    width: 100vw;
+    height: 100vh;
+    background: url('../../../img/antonio.jpg') center no-repeat;
+    background-size: cover;    
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.flexMain{
+    display: flex;
+
+}
+body{
+    margin: 0;
+}
+.toolbar_head{
+    display: flex;
+    justify-content: space-between;
+}

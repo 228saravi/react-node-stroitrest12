@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -18,9 +19,13 @@ const styles = theme => ({
     gridTop:{
         marginTop: theme.spacing.unit,
     },
-    image: {
+    imageMd: {
       width: 500,
       height: 300,
+    },
+    imageUp: {
+      width: 250,
+      height: 150,
     },
     img: {
       margin: 'auto',
@@ -46,9 +51,16 @@ class index extends Component {
                 justify="center"
                 alignItems="flex-start" spacing={16}>
                 <Grid item>
-                    <ButtonBase className={classes.image}>
-                    <img className={classes.img} alt="complex" src={require("../../img/auth.jpg")} />
-                    </ButtonBase>
+                    <Hidden mdDown>
+                        <ButtonBase className={classes.imageMd}>
+                        <img className={classes.img} alt="complex" src={require("../../../img/auth.jpg")} />
+                        </ButtonBase>
+                    </Hidden>
+                    <Hidden lgUp>
+                        <ButtonBase className={classes.imageUp}>
+                        <img className={classes.img} alt="complex" src={require("../../../img/auth.jpg")} />
+                        </ButtonBase>
+                    </Hidden>
                 </Grid>
                 <Grid item xs={12} sm container>
                     <Grid item xs container direction="column" spacing={16}>

@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import { URL } from 'url';
+import { url } from 'inspector';
 
 const tutorialSteps = [
     {
@@ -37,7 +39,6 @@ const styles = theme => ({
       height: '100%',
       paddingLeft: theme.spacing.unit * 4,
       marginBottom: 20,
-      backgroundColor: theme.palette.background.default,
     },
     img: {
       height: '100%',

@@ -29,13 +29,9 @@ module.exports = {
                 use: [
                     { loader: 'style-loader', options: { sourceMap: true } },
                     { loader: 'css-loader', options: { sourceMap: true } },
-                  
+                    { loader: 'postcss-loader', options: { } },
                     { loader: 'sass-loader', options: { sourceMap: true } }
                 ]
-            },
-            {
-                test: /\.html$/,
-                use: ['html-loader']
             },
             {
                 test: /\.(jpe?g|png|gif)$/,
@@ -45,7 +41,7 @@ module.exports = {
                         options: {
                             name: '[path][name].[ext]'                          
                         }
-                    }, 'img-loader'
+                    }
                 ]
             }
             // {
