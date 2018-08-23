@@ -8,8 +8,7 @@ class index extends Component {
         return (
             <div className="wrapper">
                 <Header/>
-                <Body/>
-                <Footer/>
+
             </div>
         );
     }

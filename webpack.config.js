@@ -1,4 +1,7 @@
 var path = require('path')
+const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 // var autoprefixer = require('autoprefixer')
 // var ExtractTextPlugin = require('extract-text-webpack-plugin')
 // var extractPlugin = new ExtractTextPlugin({
@@ -25,64 +28,44 @@ module.exports = {
                 include: path.join(__dirname, 'src')
             },
             {
-                test: /\.css$|\.scss$/,
+                test: /\.scss$/,
                 use: [
-                    { loader: 'style-loader', options: { sourceMap: true } },
-                    { loader: 'css-loader', options: { sourceMap: true } },
-                    { loader: 'postcss-loader', options: { } },
-                    { loader: 'sass-loader', options: { sourceMap: true } }
-                ]
-            },
-            {
-                test: /\.(jpe?g|png|gif)$/,
-                loaders: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[path][name].[ext]'                          
-                        }
+                  MiniCssExtractPlugin.loader,
+                  'css-loader',
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                      plugins: () => [
+                        require('autoprefixer')
+                      ],
                     }
+                  },
+                  {
+                    loader: 'sass-loader',
+                    options: {
+                      includePaths: [ path.join('./src/styles/partials') ]
+                    }
+                  }
                 ]
-            }
-            // {
-            //     test: /\.scss$/,
-            //     use:  [
-            //         "style-loader", // creates style nodes from JS strings
-            //         "css-loader", // translates CSS into CommonJS
-            //         "postcss-loader"
-            //         "sass-loader" // compiles Sass to CSS, using Node Sass by default
-            //     ]
-            // },
-            // {
-            //     test: /\.(gif|png|jpe?g|svg)$/i,
-            //     use: [
-            //       'file-loader',
-            //       {
-            //         loader: 'image-webpack-loader',
-            //         options: {
-            //           mozjpeg: {
-            //             progressive: true,
-            //             quality: 65
-            //           },
-            //           // optipng.enabled: false will disable optipng
-            //           optipng: {
-            //             enabled: false,
-            //           },
-            //           pngquant: {
-            //             quality: '65-90',
-            //             speed: 4
-            //           },
-            //           gifsicle: {
-            //             interlaced: false,
-            //           },
-            //           // the webp option will enable WEBP
-            //           webp: {
-            //             quality: 75
-            //           }
-            //         }
-            //       },
-            //     ],
-            //   }
+              },
+              {
+                test: /\.woff2?$/,
+                use: {
+                  loader: 'file-loader',
+                  options: {
+                    prefix: 'font/'
+                  }
+                }
+              },
+              {
+                test: /\.(jpg|png|svg)$/,
+                use: 'file-loader'
+              }
         ]
-    }
+    },
+    plugins:[
+        new MiniCssExtractPlugin({
+            filename: '[chunkhash].css'
+          }),
+    ]
 }
