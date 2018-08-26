@@ -1,11 +1,25 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { SwipeableDrawer, AppBar, Toolbar, List,
-    Typography, IconButton, ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
+import React, { Component } from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import  SwipeableDrawer   from '@material-ui/core/SwipeableDrawer'
 
-import { InboxIcon, DraftsIcon, SendIcon, ExpandLess, ExpandMore, MenuIcon } from '@material-ui/icons';
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Button from '@material-ui/core/Button'
 
-import classNames from 'classnames';
+import InboxIcon from '@material-ui/icons/Inbox'
+import DraftsIcon from '@material-ui/icons/Drafts'
+import SendIcon from '@material-ui/icons/Send'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import MenuIcon from '@material-ui/icons/Menu'
+
+import classNames from 'classnames'
 ///
 
 import { Link} from 'react-router-dom'

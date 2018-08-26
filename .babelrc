@@ -1,3 +1,10 @@
 {
-    "presets": ["react", "es2015", "stage-0", "react-hmre"]
+    "presets": [
+      ["env", {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        },"debug": true
+      }],
+      "react","stage-0"
+    ]   
 }
