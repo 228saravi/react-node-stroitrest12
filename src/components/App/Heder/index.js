@@ -22,7 +22,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import classNames from 'classnames'
 ///
 
-import { Link} from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import './Header.scss';
 
 // const drawerWidth = 240;
@@ -93,7 +93,7 @@ class index extends Component {
                             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer(true)}>
                                 <MenuIcon />
                             </IconButton>
-                            <Link to = "/login">Login</Link>
+                            <Button><NavLink className = 'item' to = "/login">Login</NavLink></Button>
                         </Toolbar>
                     </AppBar>
                     <SwipeableDrawer
