@@ -21,6 +21,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 
 import classNames from 'classnames'
 ///
+import ButtonLoger from './ButtonLogin'
 
 import { NavLink} from 'react-router-dom'
 import './Header.scss';
@@ -93,7 +94,7 @@ class index extends Component {
                             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer(true)}>
                                 <MenuIcon />
                             </IconButton>
-                            <Button><NavLink className = 'item' to = "/login">Login</NavLink></Button>
+                            <ButtonLoger/>
                         </Toolbar>
                     </AppBar>
                     <SwipeableDrawer
