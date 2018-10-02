@@ -3,11 +3,15 @@ import PropTypes from 'prop-types'
 import App from './Routers'
 import store from '../../redux-stores'
 import {Provider} from 'react-redux'
+import {ConnectedRouter} from 'react-router-redux'
+import history from '../../redux-stores/history'
 
 function Root() {
     return (
         <Provider store = {store}>
-            <App/>
+            <ConnectedRouter history={history}>
+                <App/>
+            </ConnectedRouter>
         </Provider>
     )
 }

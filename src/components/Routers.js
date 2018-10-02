@@ -6,13 +6,13 @@ import Admin from './Admin'
 class Routers extends Component {
     render() {
         return (
-            <Router>
+            <div>
                 <Switch>
                     <Route path= "/login" component={Auth}/>
                     <Route path= "/admin" component={Admin}/>
                     <Route path= "/" component={App}/>
                 </Switch>
-            </Router>
+            </div>
         );
     }
 }
