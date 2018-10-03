@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
 import {withStyles}  from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
     textField: {
@@ -11,17 +14,19 @@ const styles = theme => ({
 class componentTextField extends Component {
     render() {
         const { classes } = this.props;
-        const { input, label } = this.props;
+        const { input, label , meta:{error,touched} } = this.props;
+        const errorText = touched && error &&<FormHelperText id="component-error-text">{error}</FormHelperText>
+        const boolError = error && touched ? true : false
+        console.log(errorText);
         return (
             <div>
-                <TextField
-                className={classes.textField}
-                id="standard-uncontrolled"
-                label={label}
-                margin="normal"
-                {...input}
+                <FormControl  error={boolError} className={classes.textField}>
+                    <InputLabel htmlFor="component-email">Email</InputLabel>
+                    <Input id="component-email" {...input}/>
+                    {errorText}
+                </FormControl>
+
           
-                />
             </div>
         );
     }

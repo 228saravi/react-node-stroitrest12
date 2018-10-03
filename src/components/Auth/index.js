@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 
 import componentPassword from './componentPassword';
 import componentTextField from './componentTextField'
-
+import emailValidator from 'email-validator';
 
 
 class index extends Component {
@@ -28,7 +28,18 @@ class index extends Component {
         );
     }
 }
+const validate = ({email, password})=>{
+    const errors={};
+
+    if (!email) errors.email='error is required'
+    else if (!emailValidator.validate(email)) errors.email='email invalid'
+    if(!password) errors.password='password is required'
+    else if (password.length < 8) errors.password='password to short'
+
+    return errors
+}
 
 export default reduxForm({
-    form: 'auth'
+    form: 'auth',
+    validate
 })(index);

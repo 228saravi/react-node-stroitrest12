@@ -4,6 +4,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
@@ -25,12 +26,14 @@ class InputAdornments extends React.Component {
   };
 
   render() {
-    const { input } = this.props;
+        const { input, label , meta:{error,touched} } = this.props;
+        const errorText = touched && error &&<FormHelperText id="component-error-text">{error}</FormHelperText>
+        const boolError = error && touched ? true : false
 
     return (
       <div>
         
-        <FormControl>
+        <FormControl error={boolError}>
           <InputLabel htmlFor="adornment-password">Password</InputLabel>
           <Input
             id="adornment-password"
@@ -47,6 +50,7 @@ class InputAdornments extends React.Component {
               </InputAdornment>
             }
           />
+          {errorText}
         </FormControl>
       </div>
     );
