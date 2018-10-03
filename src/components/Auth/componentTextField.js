@@ -17,11 +17,10 @@ class componentTextField extends Component {
         const { input, label , meta:{error,touched} } = this.props;
         const errorText = touched && error &&<FormHelperText id="component-error-text">{error}</FormHelperText>
         const boolError = error && touched ? true : false
-        console.log(errorText);
         return (
             <div>
                 <FormControl  error={boolError} className={classes.textField}>
-                    <InputLabel htmlFor="component-email">Email</InputLabel>
+                    <InputLabel htmlFor="component-email">{label}</InputLabel>
                     <Input id="component-email" {...input}/>
                     {errorText}
                 </FormControl>

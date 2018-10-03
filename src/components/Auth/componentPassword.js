@@ -34,7 +34,7 @@ class InputAdornments extends React.Component {
       <div>
         
         <FormControl error={boolError}>
-          <InputLabel htmlFor="adornment-password">Password</InputLabel>
+          <InputLabel htmlFor="adornment-password">{label}</InputLabel>
           <Input
             id="adornment-password"
             type={this.state.showPassword ? 'text' : 'password'}
