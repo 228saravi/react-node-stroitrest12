@@ -8,13 +8,15 @@ class Routers extends Component {
         return (
             <div>
                 <Switch>
-                    <Route path= "/login" component={Auth}/>
-                    <Route path= "/admin" component={Admin}/>
+                    <Route path= "/login" render={()=><Auth onSubmit={this.handleSingIn}/>} />
+                    <Route path= "/admin" component={Admin} />
                     <Route path= "/" component={App}/>
                 </Switch>
             </div>
+
         );
     }
+    handleSingIn=(value)=>console.log('sing in',value)
 }
 
 export default Routers;
