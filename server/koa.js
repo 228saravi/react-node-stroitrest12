@@ -1,7 +1,7 @@
 const Koa = require('koa')
 const path = require('path')
 const KoaRouter = require('koa-router')
-const fs = require('mz/fs') 
+const fs = require('fs') 
 //import path from 'path'
 
 const server = new Koa()
@@ -21,18 +21,12 @@ server.use(webpackDevMiddleware)
 server.use(webpackHotMiddleware)
 // const staticMiddleware = express.static('dist')
 
-const staticMiddleware = require('koa-static');
-server.use(staticMiddleware('dist'));
-server.use(async function(ctx, next) {
-    console.log('--> add useful method to ctx');
-  
-    ctx.renderFile = async function (file) {
-        console.log(await fs.readFile(file, 'utf-8'));
-      ctx.body = await fs.readFile(file, 'utf-8');
-    };
-  
-    await next();
-  });
+
+const handlers = fs.readdirSync(path.join(__dirname, 'middlewares')).sort();
+
+handlers.forEach(handler => require('./middlewares/' + handler).init(server));
+
+
 router.get('/login', require('./routes/mainRoute').get)
 server.use(router.routes());
 server.listen('8080', ()=>{
