@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run dev\"",
     "dev": "nodemon --inspect --watch config --watch server server/main.js",
-    "build": "webpack"
+    "build": "webpack --config=config/webpack.dev.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "mime": "^2.3.1",
     "mongoose": "^5.2.18",
     "mongoose-beautiful-unique-validation": "^7.1.1",
+    "mz": "^2.7.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
