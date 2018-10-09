@@ -1,6 +1,7 @@
 const passport = require('koa-passport');
 const config = require('config');
 const {Strategy, ExtractJwt} = require('passport-jwt');
+const User = require('../../models/user');
 
 passport.use(new Strategy({
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
