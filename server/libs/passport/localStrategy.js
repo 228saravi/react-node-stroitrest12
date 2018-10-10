@@ -11,6 +11,8 @@ passport.use(new LocalStrategy({
   },
   function(req, email, password, done) {
     User.findOne({ email }, function(err, user) {
+      
+    console.log(user)
       if (err) {
         return done(err);
       }
@@ -19,7 +21,6 @@ passport.use(new LocalStrategy({
         // don't say whether the user exists
         return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
       }
-
       return done(null, user);
     });
   }

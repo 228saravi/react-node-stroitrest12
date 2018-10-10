@@ -68,7 +68,7 @@ userSchema.virtual('password')
 userSchema.methods.checkPassword = function(password) {
   if (!password) return false; // empty password means no login by password
   if (!this.passwordHash) return false; // this user does not have password (the line below would hang!)
-
+ 
   return crypto.pbkdf2Sync(password, this.salt, config.crypto.hash.iterations, config.crypto.hash.length, 'sha1') == this.passwordHash;
 };
 

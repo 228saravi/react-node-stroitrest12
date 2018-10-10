@@ -7,7 +7,6 @@ passport.use(new Strategy({
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
   secretOrKey: config.get('jwtSecret')
 }, function(jwtPayload, done) {
-  console.log(jwtPayload)
   User.findById(jwtPayload.id, function(err, user) {
     if (err) {
       return done(err, false);

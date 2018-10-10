@@ -4,18 +4,15 @@ const path = require('path');
 module.exports = {
   // secret data can be moved to env variables
   // or a separate config
+  my_app: 'react-node-stroitrest',
   secret:   'mysecret',
   jwtSecret: 'jwtSecret',
   mongoose: {
-    uri:     'mongodb://localhost/app',
+    uri:     'mongodb://localhost:27017/app',
     options: {
-      server: {
-        socketOptions: {
-          keepAlive: 1
-        },
-        poolSize:      5
+        poolSize:      10
       }
-    }
+    
   },
   crypto: {
     hash: {

@@ -3,8 +3,11 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import App from './App'
 import Auth from './Auth'
 import Admin from './Admin'
+import {connect} from 'react-redux';
+import {singIn} from '../../redux-stores/dusk/auth';
+
 class Routers extends Component {
-    render() {
+    render() {  
         return (
             <div>
                 <Switch>
@@ -19,4 +22,4 @@ class Routers extends Component {
     handleSingIn=(value)=>console.log('sing in',value)
 }
 
-export default Routers;
+export default connect(null,{singIn})(Routers);

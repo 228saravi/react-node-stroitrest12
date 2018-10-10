@@ -3,8 +3,9 @@ const jwt = require('jwt-simple');
 const passport = require('koa-passport');
 
 exports.post = async function(ctx, next) {
+  console.log('---qweqweqwewqe')
   await passport.authenticate('local', { session: false })(ctx, next);
-
+  console.log(ctx.state.user)
   if (ctx.state.user) {
     const payload = {
       id: ctx.state.user._id,

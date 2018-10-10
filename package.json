@@ -30,6 +30,7 @@
     "express": "^4.16.3",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
+    "jwt-simple": "^0.5.5",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
     "koa-convert": "^1.2.0",
