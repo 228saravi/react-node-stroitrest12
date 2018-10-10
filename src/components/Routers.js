@@ -4,14 +4,16 @@ import App from './App'
 import Auth from './Auth'
 import Admin from './Admin'
 import {connect} from 'react-redux';
-import {singIn} from '../../redux-stores/dusk/auth';
+import {singIn, moduleName} from '../../redux-stores/dusk/auth';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Routers extends Component {
     render() {  
+        const {loading} = this.props
         return (
             <div>
                 <Switch>
-                    <Route path= "/login" render={()=><Auth onSubmit={this.handleSingIn}/>} />
+                    <Route path= "/login" render={()=>loading ? <CircularProgress  color="secondary" /> : <Auth onSubmit={this.handleSingIn}/>} />
                     <Route path= "/admin" component={Admin} />
                     <Route path= "/" component={App}/>
                 </Switch>
@@ -19,7 +21,9 @@ class Routers extends Component {
 
         );
     }
-    handleSingIn=(value)=>console.log('sing in',value)
+    handleSingIn=({email,password})=> this.props.singIn(email, password)
 }
 
-export default connect(null,{singIn})(Routers);
+export default connect(state => ({
+    loading: state[moduleName].loading
+}),{singIn})(Routers);

@@ -29,7 +29,7 @@ handlers.forEach(handler => require('./middlewares/' + handler).init(server));
 
 
 router.post('/reg', require('./routes/registration').post)
-router.post('/login', require('./routes/login').post)
+router.post('/authorization', require('./routes/login').post)
 router.get('/font', require('./routes/frontpage').get)
 router.get('/priv', require('./routes/private').get)
 router.get('/*', require('./routes/mainRoute').get)

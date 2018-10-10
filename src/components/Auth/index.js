@@ -8,7 +8,7 @@ import emailValidator from 'email-validator';
 
 class index extends Component {
     render() {
-        const { classes, handleSubmit } = this.props; 
+        const { classes, handleSubmit, loading } = this.props; 
         return (
             <div className = 'formAuth'>
                 <h2>Sing in</h2>
