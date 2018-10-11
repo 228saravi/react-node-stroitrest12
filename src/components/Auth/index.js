@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 
-import componentPassword from './componentPassword';
+import componentPassword from './componentPassword'
 import componentTextField from './componentTextField'
-import emailValidator from 'email-validator';
+import emailValidator from 'email-validator'
 
+import {  Redirect } from 'react-router-dom'
+
+import {connect} from 'react-redux';
+import { moduleName} from '../../../redux-stores/dusk/auth'
 
 class index extends Component {
     render() {
-        const { classes, handleSubmit, loading } = this.props; 
+        const { classes, handleSubmit, authorized } = this.props; 
         return (
             <div className = 'formAuth'>
+                {authorized && <Redirect to='/'/>}
                 <h2>Sing in</h2>
                 <form onSubmit = {handleSubmit}>
                     <div >
@@ -42,4 +47,4 @@ const validate = ({email, password})=>{
 export default reduxForm({
     form: 'auth',
     validate
-})(index);
+})(connect(state=>({authorized:!!state[moduleName].token}))(index));

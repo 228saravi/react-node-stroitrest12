@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import  SwipeableDrawer   from '@material-ui/core/SwipeableDrawer'
-
+import {  Redirect } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
@@ -10,14 +10,17 @@ import IconButton from '@material-ui/core/IconButton'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import Button from '@material-ui/core/Button'
 
-import InboxIcon from '@material-ui/icons/Inbox'
+
+import ExitToApp from '@material-ui/icons/ExitToApp'
 import DraftsIcon from '@material-ui/icons/Drafts'
 import SendIcon from '@material-ui/icons/Send'
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
 import MenuIcon from '@material-ui/icons/Menu'
+import Fingerprint from '@material-ui/icons/Fingerprint'
+
+
+import {connect} from 'react-redux';
+import {Exit as AdminExit, moduleName} from '../../../../redux-stores/dusk/auth';
 
 import classNames from 'classnames'
 ///
@@ -44,7 +47,7 @@ const styles = {
 class index extends Component {
     state = {
         left: false,
-
+        adminPageOpen:false
       };
     
       toggleDrawer = (open) => () => {
@@ -52,9 +55,13 @@ class index extends Component {
             left: open,
         });
       };
-    
+      openAdmin =  (open) => {
+        this.setState({
+            adminPageOpen: open,
+        });
+      };
       render() {
-        const { classes } = this.props;
+        const { classes,authorized, AdminExit } = this.props;
         const drawer = (<List
             component="nav"
             
@@ -71,13 +78,21 @@ class index extends Component {
               </ListItemIcon>
               <ListItemText inset primary="Drafts" />
             </ListItem>
-            <ListItem button onClick={this.handleClick}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText inset primary="Inbox" />
-              {this.state.open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
+            
+            {authorized &&  <div>
+                <ListItem button onClick={()=>this.openAdmin(true)}>
+                    <ListItemIcon>
+                        <Fingerprint />
+                    </ListItemIcon>
+                    <ListItemText inset primary="Админка" />
+                </ListItem>
+                <ListItem button onClick={AdminExit}>
+                    <ListItemIcon>
+                        <ExitToApp />
+                    </ListItemIcon>
+                    <ListItemText inset primary="Выход" />
+                    </ListItem>
+            </div>}
           
           </List>);
         const sideList = (
@@ -85,9 +100,16 @@ class index extends Component {
                 {drawer}
             </div>
         );
-    
+    /*<ListItem button onClick={this.handleClick}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText inset primary="Inbox" />
+              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>*/
         return (
             <div className='flexMain'>
+                {this.state.adminPageOpen && <Redirect to='/admin'/>}
                 <div className={classes.root}>
                     <AppBar position="fixed" color="default">
                         <Toolbar className="toolbar_head">
@@ -121,4 +143,4 @@ class index extends Component {
       }
     }
     
-export default withStyles(styles)(index);
+export default connect(state=>({authorized: !!state[moduleName].token}),{AdminExit})(withStyles(styles)(index))

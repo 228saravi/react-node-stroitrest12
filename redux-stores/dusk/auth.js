@@ -14,6 +14,7 @@ const ReducerRecord = Record({
 export const SING_IN_REQUEST = `${myApp}/${moduleName}/SING_IN_REQUEST`
 export const SING_IN_SUCCESS = `${myApp}/${moduleName}/SING_IN_SUCCESS`
 export const SING_IN_ERROR = `${myApp}/${moduleName}/SING_IN_ERROR`
+export const ADMIN_EXIT = `${myApp}/${moduleName}/ADMIN_EXIT`
 
 export default function reducer(state = new ReducerRecord(), action){
     const {type, payload, error} = action
@@ -28,7 +29,9 @@ export default function reducer(state = new ReducerRecord(), action){
         case SING_IN_REQUEST:
             return state
                 .set('loading', false)
-                .set('error', error)              
+                .set('error', error)   
+        case ADMIN_EXIT:
+            return state.set('token', null)           
         default:
             return state
     }
@@ -48,5 +51,12 @@ export function singIn(email, password){
                 type: SING_IN_ERROR,
                 error: error
             }))
+    }
+}
+export function Exit(email, password){
+    return (dispatch)=>{
+        dispatch({
+            type: ADMIN_EXIT
+        })
     }
 }

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const crypto = require('crypto');
-const _ = require('lodash');
-const config = require('config');
+const mongoose = require('mongoose')
+const crypto = require('crypto')
+const _ = require('lodash')
+const config = require('config')
 
 const userSchema = new mongoose.Schema({
   displayName:   {
@@ -32,14 +32,14 @@ const userSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+})
 
 userSchema.methods.getPublicFields = function() {
   return {
     displayName: this.displayName,
     email: this.email
   }
-};
+}
 
 userSchema.virtual('password')
   .set(function(password) {
@@ -63,13 +63,13 @@ userSchema.virtual('password')
   })
   .get(function() {
     return this._plainPassword;
-  });
+  })
 
 userSchema.methods.checkPassword = function(password) {
   if (!password) return false; // empty password means no login by password
   if (!this.passwordHash) return false; // this user does not have password (the line below would hang!)
  
   return crypto.pbkdf2Sync(password, this.salt, config.crypto.hash.iterations, config.crypto.hash.length, 'sha1') == this.passwordHash;
-};
+}
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema)
