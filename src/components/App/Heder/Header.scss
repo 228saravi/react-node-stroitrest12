@@ -1,11 +1,14 @@
 .mainBackground{
     width: 100vw;
-    height: 100vh;
+    height: 85vh;
     background: url('../../../img/antonio.jpg') center no-repeat;
     background-size: cover;    
     display: flex;
-    flex-direction: column;
-    align-content: center;
+    flex-direction: row;   
+    align-items: flex-start;
+    color: "#FFFFFF";
+    justify-content: space-between;
+    padding: 12px 150px;
 }
 .flexMain{
     display: flex;

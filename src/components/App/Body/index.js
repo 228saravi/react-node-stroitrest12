@@ -18,6 +18,7 @@ const styles = theme => ({
     },
     gridTop:{
         marginTop: theme.spacing.unit,
+        transform:'translateY(-15%)',
     },
     imageMd: {
       width: 500,
