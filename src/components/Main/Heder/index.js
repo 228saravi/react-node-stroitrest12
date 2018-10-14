@@ -82,17 +82,23 @@ class index extends Component {
             component="nav"
             
           >
+          <ListItem button>
+              <ListItemIcon>
+                <SendIcon />
+              </ListItemIcon>
+              <ListItemText inset primary="О предприятии" />
+            </ListItem>
             <ListItem button>
               <ListItemIcon>
                 <SendIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Sent mail" />
+              <ListItemText inset primary="Реализованные проекты" />
             </ListItem>
             <ListItem button>
               <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Drafts" />
+              <ListItemText inset primary="Контакты" />
             </ListItem>
             
             {authorized &&  <div>
@@ -158,7 +164,9 @@ class index extends Component {
                     <Hidden smDown>
                         <Typography variant="title" color="inherit" align="center" >Стройтрест 12</Typography> 
                         <div>
-                            <Button className={classes.cssRoot}>Primary</Button>
+                            <Button className={classes.cssRoot}>О предприятии</Button>
+                            <Button className={classes.cssRoot}>Реализованные проекты</Button>
+                            <Button className={classes.cssRoot}>Контакты</Button>
                             {authorized?<Button onClick={()=>this.openAdmin(true)} className={classes.cssRoot}>
                                 <AccountCircle/>
                             </Button>:

@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+body{
+    font-family: 'Roboto';
+}
 .mainBackground{
     width: 100vw;
-    height: 85vh;
+    height: 90vh;
+    background-color: gray;
     background: url('../../../img/antonio.jpg') center no-repeat;
     background-size: cover;    
     display: flex;
@@ -8,7 +13,7 @@
     align-items: flex-start;
     color: "#FFFFFF";
     justify-content: space-between;
-    padding: 12px 150px;
+    padding: 12px 10vw;
 }
 .flexMain{
     display: flex;

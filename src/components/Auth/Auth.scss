@@ -1,7 +1,41 @@
 .formAuth {
+    width: 100vw;
+    height: 100vh;
+    background: url('../../img/antonio.jpg') center no-repeat;
+    background-size: cover;    
     display: flex;
     flex-direction: row;   
+    align-items: center;
+    justify-content: center;
 }
-.email{
-    width: 200px;
+.form{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.labelButton{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px;
+
+}
+// .conteiner_typography{
+//     height: 80px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     transform: translateY(-50%);
+//     // background-color: purple;
+// }
+// .color_typography{
+//     width: 100%;
+//     height: ;
+//     background-color: purple;
+// }
+.inputSubmit{
+    
+    display: none;
 }

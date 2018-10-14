@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
-import App from './App'
+import Main from './Main'
 import Auth from './Auth'
 import Admin from './Admin'
 import {connect} from 'react-redux';
@@ -14,9 +14,9 @@ class Routers extends Component {
         return (
             <div>
                 <Switch>
-                    <Route path= "/login" render={()=>loading ? <CircularProgress  color="secondary" /> : <Auth onSubmit={this.handleSingIn}/>} />
+                    <Route path= "/login" render={()=><Auth onSubmit={this.handleSingIn}/>} />
                     <ProtectedRoute path="/admin" component={Admin}/>
-                    <Route path= "/" component={App}/>
+                    <Route path= "/" component={Main}/>
                 </Switch>
             </div>
 
@@ -25,6 +25,4 @@ class Routers extends Component {
     handleSingIn=({email,password})=> this.props.singIn(email, password)
 }
 
-export default connect(state => ({
-    loading: state[moduleName].loading
-}),{singIn},null,{pure:false})(Routers);
+export default connect(null,{singIn},null,{pure:false})(Routers);

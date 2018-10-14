@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Button from '@material-ui/core/Button';
-import Hidden from '@material-ui/core/Hidden';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Button from '@material-ui/core/Button'
+import Hidden from '@material-ui/core/Hidden'
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -15,10 +15,17 @@ const styles = theme => ({
       flexGrow: 1,
       maxWidth: 1200,
       padding: theme.spacing.unit * 2,
+      paddingTop: '100px',
+      [theme.breakpoints.down('sm')]: {       
+        margin: '0 2vw 0 ',
+      },
+      [theme.breakpoints.up('sm')]: {       
+        margin: '0 5vw 0 ',
+      },
     },
     gridTop:{
         marginTop: theme.spacing.unit,
-        transform:'translateY(-15%)',
+        transform:'translateY(-10%)',
     },
     imageMd: {
       width: 500,
@@ -46,7 +53,7 @@ class index extends Component {
             justify="center"
             alignItems="center"
             className={classes.gridTop}>
-            <Paper className={classes.root}>
+            <Paper className={classes.root} elevation={10}>
                 <Grid  container
                 direction="row"
                 justify="center"

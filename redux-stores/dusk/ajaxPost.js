@@ -4,9 +4,19 @@ export default function  (method,url,data){
     xhr.open(method, url, false)
 
     xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8')
-    xhr.send(JSON.stringify(data))
+    //try {
+        xhr.onerror = function () {
+            console.log("** An error occurred during the transaction");
+          };
+        xhr.send(JSON.stringify(data))
+    // } catch (error) {
+    //     return new Promise((resolve,reject)=>{
+    //             reject(error);
 
-    console.log('----AJAX',xhr)
+    //     })
+    // }
+    
+
 
     return new Promise((resolve,reject)=>{
         if (xhr.status != 200) {
