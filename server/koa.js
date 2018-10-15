@@ -6,7 +6,7 @@ const fs = require('fs')
 
 const server = new Koa()
 const router = new KoaRouter()
-const mongoose = require('./libs/mongoose');
+const mongoose = require('./libs/mongoose');  
 
 const webpack = require("webpack")
 const config = require("../config/webpack.dev.js")
