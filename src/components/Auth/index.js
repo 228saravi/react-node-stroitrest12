@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import Typography from '@material-ui/core/Typography'
 import Snackbar from '@material-ui/core/Snackbar'
-import SnackbarContent from '@material-ui/core/SnackbarContent'
 import './Auth.scss';
 import { withStyles } from '@material-ui/core/styles'
 import componentPassword from './componentPassword'
@@ -49,9 +48,23 @@ class index extends Component {
         this.setState({ openMessage: false });
     }
     render() {
-        const { classes, handleSubmit, authorized, error } = this.props; 
+        const { classes, handleSubmit, authorized, error, loading } = this.props; 
         return (
             <div className = 'formAuth'>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={loading}
+                    autoHideDuration={60}
+                    >
+                    <MySnackbarContentWrapper
+                        onClose={this.handleClose}
+                        variant="warning"
+                        message="Загрузка пользователя!!"
+                    />
+                </Snackbar>
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -109,4 +122,5 @@ export default reduxForm({
     form: 'auth',
     validate
 })(connect(state=>({authorized:!!state[moduleName].token,
+    loading: state[moduleName].loading,
     error: state[moduleName].error}))(withStyles(styles)(index)));
