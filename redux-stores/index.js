@@ -4,7 +4,7 @@ import logger from 'redux-logger'
 import {routerMiddleware} from 'react-router-redux'
 import history from './history'
 import createSagaMiddleware from 'redux-saga'
-import {saga} from './dusk/auth';
+import saga from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
 
