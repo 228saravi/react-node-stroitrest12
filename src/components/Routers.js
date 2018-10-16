@@ -22,7 +22,7 @@ class Routers extends Component {
 
         );
     }
-    handleSingIn=({email,password})=> this.props.singIn(email, password)
+    handleSingIn=({email,password})=> this.props.singIn({email:email, password:password})
 }
 
 export default connect(null,{singIn},null,{pure:false})(Routers);

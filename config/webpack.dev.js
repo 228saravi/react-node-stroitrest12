@@ -4,7 +4,7 @@ const HTMLwebpackplugin = require('html-webpack-plugin')
 // const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
     entry:{
-        main: ['webpack-hot-middleware/client?reload=true',
+        main: ['babel-polyfill', 'webpack-hot-middleware/client?reload=true',
         './src/index.js']
     },
     mode:'development',
