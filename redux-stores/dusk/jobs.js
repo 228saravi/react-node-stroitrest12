@@ -6,6 +6,8 @@ export const moduleName='jobs'
 
 import {Record,OrderedMap} from 'immutable'
 
+import {fbDatatoEntities} from './utils';
+
 const JobRecord=Record({
     name:null,
     money:null,
@@ -115,7 +117,7 @@ export const loadJobsSaga = function * (){
     }
 }
 
-export const saga =function * (){
+export const saga = function * () {
     yield all([
         loadJobsSaga()
     ])
