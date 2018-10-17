@@ -22,12 +22,6 @@ module.exports = {
             colors:true
         }
     },
-    // optimization: {
-    //     splitChunks: {
-    //       // include all types of chunks
-    //       chunks: 'all'
-    //     }
-    //   },
     module:{
         rules:[
             {

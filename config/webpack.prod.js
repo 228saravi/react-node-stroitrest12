@@ -3,10 +3,14 @@ const webpack = require('webpack')
 const HTMLwebpackplugin = require('html-webpack-plugin') 
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const OptimazCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const zopfli = require('@gfx/zopfli')
 //const MinifyPlugin = require('babel-minify-webpack-plugin')
 module.exports = {
     entry:{
-        main: './js/main.js'
+        main: ['babel-polyfill',
+        './src/index.js']
     },
     mode:'production',
     output:{
@@ -15,11 +19,9 @@ module.exports = {
         publicPath: '/'
     },
     optimization: {
-        splitChunks: {
-          // include all types of chunks
-          chunks: 'all',
-          minChunks: 2
-        }
+        minimizer: [new UglifyJsPlugin({
+            parallel: 4
+          })]
       },
     module:{
         rules:[
@@ -100,14 +102,21 @@ module.exports = {
     },
     plugins:[
         new OptimazCSSAssetsPlugin(),
+        new CompressionPlugin({
+            compressionOptions: {
+               numiterations: 15
+            },
+            algorithm(input, compressionOptions, callback) {
+              return zopfli.gzip(input, compressionOptions, callback);
+            }
+        }),
         new MiniCSSExtractPlugin({
             "filename": "[name]-[contenthash].css"
         }),
         new HTMLwebpackplugin({
-
-            template : "./html/index.pug",
+            template : "./index.html",
 
             title: "dsfsdfsdf"
-        })
+        }),
     ]
 }

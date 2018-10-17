@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run dev\"",
     "dev": "nodemon --inspect --watch config --watch server server/main.js",
-    "build": "webpack --config=config/webpack.dev.js"
+    "build": "webpack --config=config/webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/228saravi/react-node-stroitrest12#readme",
   "dependencies": {
+    "@gfx/zopfli": "^1.0.9",
     "@material-ui/core": "^1.5.1",
     "@material-ui/icons": "^2.0.3",
     "assert": "^1.4.1",
@@ -55,6 +56,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-loadable": "^5.5.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.9",
@@ -79,6 +81,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
+    "compression-webpack-plugin": "^2.0.0",
     "concurrently": "^3.6.1",
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -91,6 +94,7 @@
     "koa-webpack-hot-middleware": "^1.0.3",
     "mini-css-extract-plugin": "^0.4.2",
     "node-sass": "^4.9.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
