@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
-// import Main from './Main'
-// import Admin from './Admin'
+import Admin from './Admin'
 import {connect} from 'react-redux';
-import {singIn, moduleName} from '../../redux-stores/dusk/auth';
+import {singIn, moduleName} from '../../redux-stores/duck/auth';
 import ProtectedRoute from './common/ProtectedRoute'
 import Loadable from 'react-loadable';
-function MyLoadingComponent() {
-    return <div className = 'loading'>Loading...</div>;
-  }
+import Loader from './common/Loader';
 const LoadableComponentMain = Loadable({
     loader: () => import('./Main'),
-    loading: MyLoadingComponent,
+    loading: Loader,
 });
 const LoadableComponentAuth = Loadable({
     loader: () => import('./Auth'),
-    loading: MyLoadingComponent,
+    loading: Loader,
 });
-const LoadableComponentAdmin = Loadable({
-    loader: () => import('./Admin'),
-    loading: MyLoadingComponent,
-});
+// const LoadableComponentAdmin = Loadable({
+//     loader: () => import('./Admin'),
+//     loading: Loader,
+// });
 class Routers extends Component {
     render() {  
         const {loading} = this.props
@@ -28,7 +25,7 @@ class Routers extends Component {
             <div>
                 <Switch>
                     <Route path= "/login" render={()=><LoadableComponentAuth onSubmit={this.handleSingIn}/>} />
-                    <ProtectedRoute path="/admin" component={LoadableComponentAdmin}/>
+                    <ProtectedRoute path="/admin" component={Admin}/>
                     <Route path= "/" component={LoadableComponentMain}/>
                 </Switch>
             </div>

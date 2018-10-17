@@ -24,7 +24,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 
 
 import {connect} from 'react-redux';
-import {Exit as AdminExit, moduleName} from '../../../../redux-stores/dusk/auth';
+import {Exit as AdminExit, moduleName} from '../../../../redux-stores/duck/auth';
 
 ///
 

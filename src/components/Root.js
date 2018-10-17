@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import App from './Routers'
 import store from '../../redux-stores'
 import {Provider} from 'react-redux'

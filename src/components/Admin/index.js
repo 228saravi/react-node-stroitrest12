@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import  SwipeableDrawer   from '@material-ui/core/SwipeableDrawer'
 
-import { HashRouter as Router, NavLink, Route } from 'react-router-dom'
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import {NavLink, Route,Switch } from 'react-router-dom'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Jobs from './Jobs';
+import Jobs from './Jobs'
+import Job from './Job'
 
 import SendIcon from '@material-ui/icons/Send'
 const drawerWidth = 240;
@@ -100,10 +99,17 @@ class index extends Component {
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Route path="/admin/jobs" component={Jobs}/>
+                    <Switch>
+                        <Route path="/admin/jobs/:id" render = {this.getJob}/>
+                        <Route path="/admin/jobs" component={Jobs}/>
+                    </Switch>
                 </main>
             </div>
         );
+    }
+    getJob = ({ match }) => {
+        const { id } = match.params
+        return <Job id = {id} isOpen key = {id} />
     }
 }
 

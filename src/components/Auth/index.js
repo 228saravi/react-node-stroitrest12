@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography'
 import Snackbar from '@material-ui/core/Snackbar'
 import './Auth.scss';
 import { withStyles } from '@material-ui/core/styles'
-import componentPassword from './componentPassword'
-import componentTextField from './componentTextField'
+import componentPassword from '../common/componentPassword'
+import componentTextField from '../common/componentTextField'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import emailValidator from 'email-validator'
@@ -13,7 +13,7 @@ import emailValidator from 'email-validator'
 import {  Redirect } from 'react-router-dom'
 
 import {connect} from 'react-redux'
-import { moduleName} from '../../../redux-stores/dusk/auth'
+import { moduleName} from '../../../redux-stores/duck/auth'
 import MySnackbarContentWrapper from '../common/MySnackbarContent'
 
 const styles = {

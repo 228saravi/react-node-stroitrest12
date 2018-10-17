@@ -9,6 +9,7 @@ import {Record,OrderedMap} from 'immutable'
 import {fbDatatoEntities} from './utils';
 
 const JobRecord=Record({
+    _id:null,
     name:null,
     money:null,
     Requirements:null,
