@@ -4,8 +4,8 @@ exports.get = async function(ctx, next) {
 	await Jobs.find().then(result => ctx.body=result,
 		reject=>{
             ctx.status = 400
-            ctx.body = {error: reject
-        }})
+            ctx.body = {error: reject}
+        })
 };
 exports.post= async function (ctx,next) {
     await passport.authenticate('jwt', {session: false})(ctx, next);

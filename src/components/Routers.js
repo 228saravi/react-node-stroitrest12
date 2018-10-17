@@ -7,7 +7,7 @@ import {singIn, moduleName} from '../../redux-stores/dusk/auth';
 import ProtectedRoute from './common/ProtectedRoute'
 import Loadable from 'react-loadable';
 function MyLoadingComponent() {
-    return <div>Loading...</div>;
+    return <div className = 'loading'>Loading...</div>;
   }
 const LoadableComponentMain = Loadable({
     loader: () => import('./Main'),

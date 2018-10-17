@@ -1,5 +1,3 @@
-import ajaxAuth from './ajaxPost'
-
 import {all, put, call, take} from 'redux-saga/effects'
 import { eventChannel, END } from 'redux-saga'
 
@@ -54,7 +52,7 @@ function CreateDataChanel (action){
         xhr.onerror = (e) => {
             emit({
                 type: SING_IN_ERROR,
-                payload: error
+                payload: e
             })
             emit(END)
         }
@@ -71,22 +69,22 @@ export const addSingInSaga = function * () {
             try {
                 
                 let action = yield take(ajaxDataChanel)
-                console.log(action)
-                if(action.type = SING_IN_SUCCESS)
+                if(action.type = SING_IN_SUCCESS){
                     yield put({
                         type: SING_IN_SUCCESS,
                         payload: action.payload
-                    })
-                else if(action.type = SING_IN_ERROR)
+                })}
+                else if(action.type = SING_IN_ERROR){
                     yield put({
                         type: SING_IN_ERROR,
                         payload: action.error
-                    })
+                })}
             } catch (error) {
                 yield put({
                     type: SING_IN_ERROR,
                     error
                 })
+                break;
             }
         }
     }

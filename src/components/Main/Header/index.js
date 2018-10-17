@@ -20,14 +20,12 @@ import ExitToApp from '@material-ui/icons/ExitToApp'
 import DraftsIcon from '@material-ui/icons/Drafts'
 import SendIcon from '@material-ui/icons/Send'
 import MenuIcon from '@material-ui/icons/Menu'
-import Fingerprint from '@material-ui/icons/Fingerprint'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 
 
 import {connect} from 'react-redux';
 import {Exit as AdminExit, moduleName} from '../../../../redux-stores/dusk/auth';
 
-import classNames from 'classnames'
 ///
 
 import { NavLink} from 'react-router-dom'
