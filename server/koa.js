@@ -27,8 +27,10 @@ const handlers = fs.readdirSync(path.join(__dirname, 'middlewares')).sort();
 
 handlers.forEach(handler => require('./middlewares/' + handler).init(server));
 
-router.get('/jobs', require('./routes/jobs/addJob').get)
-router.post('/jobs', require('./routes/jobs/addJob').post)
+router.get('/jobs', require('./routes/jobs').get)
+router.post('/jobs', require('./routes/jobs').post)
+router.put('/jobs', require('./routes/jobs').put)
+router.delete('/jobs', require('./routes/jobs').delete)
 router.post('/reg', require('./routes/registration').post)
 router.post('/authorization', require('./routes/login').post)
 router.get('/font', require('./routes/frontpage').get)
