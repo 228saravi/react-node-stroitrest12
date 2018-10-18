@@ -12,13 +12,14 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Jobs from './Jobs'
 import Job from './Job'
+import {updateJobs} from '../../../redux-stores/duck/jobs';
+import {connect} from 'react-redux';
 
 import SendIcon from '@material-ui/icons/Send'
 const drawerWidth = 240;
 const styles = theme => ({
     root: {
       flexGrow: 1,
-      height: 440,
       zIndex: 1,
       overflow: 'hidden',
       position: 'relative',
@@ -67,15 +68,13 @@ class index extends Component {
             component="nav"
             
           >
-          <ListItem button>
-              <ListItemIcon>
-                <SendIcon />
-              </ListItemIcon>
-              <NavLink to='/admin/jobs' className = {classes.item}>Вакансия</NavLink>
-            </ListItem>
-            
-          
-          </List>);
+        <ListItem button>
+            <ListItemIcon>
+              <SendIcon />
+            </ListItemIcon>
+            <NavLink to='/admin/jobs' className = {classes.item}>Вакансия</NavLink>
+          </ListItem>
+        </List>);
         
         return (
             <div className={classes.root}>
@@ -109,8 +108,11 @@ class index extends Component {
     }
     getJob = ({ match }) => {
         const { id } = match.params
-        return <Job id = {id} isOpen key = {id} />
+        return <Job id = {id} isOpen key = {id} onSubmit={this.handleSubmitJob}/>
     }
+    c
+    handleSubmitJob = (value) => {console.log('-------------------',value)
+         this.props.updateJobs(value)}
 }
 
-export default withStyles(styles)(index)
+export default connect(null,{updateJobs})(withStyles(styles)(index))

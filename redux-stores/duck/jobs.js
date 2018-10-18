@@ -32,6 +32,12 @@ export const JOB_CREATE_REQUEST = `${myApp}/${moduleName}/JOB_CREATE_REQUEST`
 export const JOB_CREATE_SUCCESS = `${myApp}/${moduleName}/JOB_CREATE_SUCCESS`
 export const JOB_CREATE_ERROR = `${myApp}/${moduleName}/JOB_CREATE_ERROR`
 
+export const JOB_UPDATE_REQUEST = `${myApp}/${moduleName}/JOB_UPDATE_REQUEST`
+export const JOB_UPDATE_SUCCESS = `${myApp}/${moduleName}/JOB_UPDATE_SUCCESS`
+export const JOB_UPDATE_ERROR = `${myApp}/${moduleName}/JOB_UPDATE_ERROR`
+
+///reducer start
+
 export function reduserJobs (state = new ReducerRecord(), action){
     const {type, payload} = action
     switch (type) {
@@ -51,6 +57,23 @@ export function reduserJobs (state = new ReducerRecord(), action){
                 .set('loading', false)
                 .set('loaded', false)
                 .set('error', payload)
+        /////////////update
+        case JOB_UPDATE_REQUEST:
+            return state
+                .set('loading', true)
+                .set('loaded', false)
+                .set('error', null)
+        case JOB_UPDATE_SUCCESS:
+            return state
+                .set('loading', false)
+                .set('loaded', true)
+                .set('error', null)
+                .setIn(['entities',payload._id],new JobRecord(payload));
+        case JOB_UPDATE_ERROR:
+            return state
+                .set('loading', false)
+                .set('loaded', false)
+                .set('error', payload)
             
     
         default:
@@ -58,13 +81,47 @@ export function reduserJobs (state = new ReducerRecord(), action){
     }
 }
 
+
+
+///reducer end
+
+
 export function loadListJobs(){
     return{
         type: JOBS_LIST_LOADING_REQUEST
     }
 }
+export function updateJobs(value){
+    return{
+        type: JOB_UPDATE_REQUEST,
+        payload:value
+    }
+}
 
-function createDataChanleJobsLoad(actoin){
+function createDataChanleJobsUpdate(action){
+    return eventChannel(emit=>{
+        const xhr = new XMLHttpRequest()
+        xhr.open('post', '/jobs', true)
+        xhr.onload = (e) => {
+            emit({
+                type: JOB_UPDATE_SUCCESS,
+                payload: JSON.parse(xhr.responseText)
+            }) 
+            emit(END)
+        }
+        xhr.onerror = (e) => {
+            emit({
+                type: JOB_UPDATE_ERROR,
+                payload: e
+            })
+            emit(END)
+        }
+        xhr.send(JSON.stringify(action.payload))
+        return () => {} 
+    })
+}
+
+function createDataChanleJobsLoad(action){
     return eventChannel(emit=>{
         const xhr = new XMLHttpRequest()
         xhr.open('get', '/jobs', true)
@@ -87,28 +144,28 @@ function createDataChanleJobsLoad(actoin){
     })
 }
 
-export const loadJobsSaga = function * (){
+function * sagaActionCreate(REQUEST, SUCCESS, ERROR, CHANLE){
     while(true){
-        yield take(JOBS_LIST_LOADING_REQUEST)
-        const ajaxDataChanel = yield call(createDataChanleJobsLoad)
+        const action_ =yield take(REQUEST)
+        const ajaxDataChanel = yield call(CHANLE,action_)
         while(true){
             let action = yield take(ajaxDataChanel)
             try {
-                if(action.type == JOBS_LIST_LOADING_SUCCESS){
+                if(action.type == SUCCESS){
                     yield put({
-                        type: JOBS_LIST_LOADING_SUCCESS,
+                        type: SUCCESS,
                         payload: action.payload
                 })}
-                else if(action.type == JOBS_LIST_LOADING_ERROR){
+                else if(action.type == ERROR){
                     yield put({
-                        type: JOBS_LIST_LOADING_ERROR,
+                        type: ERROR,
                         payload: action.payload})
                 }
 
                 
             } catch (error) {
                 yield put({
-                    type: JOBS_LIST_LOADING_ERROR,
+                    type: ERROR,
                     payload: error
                 })
                 break;
@@ -120,7 +177,16 @@ export const loadJobsSaga = function * (){
 
 export const saga = function * () {
     yield all([
-        loadJobsSaga()
+        sagaActionCreate (
+            JOBS_LIST_LOADING_REQUEST,
+            JOBS_LIST_LOADING_SUCCESS,
+            JOBS_LIST_LOADING_ERROR,
+            createDataChanleJobsLoad),
+        sagaActionCreate (
+            JOB_UPDATE_REQUEST,
+            JOB_UPDATE_SUCCESS,
+            JOB_UPDATE_ERROR,
+            createDataChanleJobsUpdate)
     ])
 }
 
