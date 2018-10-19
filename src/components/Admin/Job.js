@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form'
 import {connect} from 'react-redux';
-import {moduleName} from '../../../redux-stores/duck/jobs'
+import {moduleName as moduleJobs} from '../../../redux-stores/duck/jobs'
 import componentTextField from '../common/componentTextField'
+import TextArea from '../common/TextArea'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
@@ -70,7 +71,11 @@ class Job extends Component {
         clearTimeout(this.timer);
       }
       componentWillMount() {
-        this.props.initialize({id:this.props.id});
+        this.props.initialize({
+            _id:this.props.id,
+            name: this.props.job.name,
+            money:this.props.job.money
+        });
       }
     
       handleButtonClick = () => {
@@ -92,7 +97,7 @@ class Job extends Component {
         }
       };
     render() {
-        const {id, classes, handleSubmit} = this.props        
+        const {id, classes, handleSubmit,authorized} = this.props        
         const { loading, success } = this.state;
         
         const buttonClassname = classNames({
@@ -109,7 +114,7 @@ class Job extends Component {
                             
                         </Paper>    
                             <div>
-                                <Field name="id" component={componentTextField} label="id" />
+                                <Field name="_id" component={componentTextField} label="id" />
                             </div>                 
                             <div>
                                 <Field name="name" component={componentTextField} label="Название"/>
@@ -117,7 +122,17 @@ class Job extends Component {
                             <div>
                                 <Field name="money" component={componentTextField} label="Зарплата" />
                             </div>
-
+                            <div>
+                                <Field name="Requirements" component={TextArea} label="Требования" />
+                            </div>
+                            <div>
+                                <Field name="Duties" component={TextArea} label="Обязонности" />
+                            </div>
+                            <div>
+                                <Field name="Сonditions" component={TextArea} label="Условия" />
+                            </div>
+                            
+                            
                         <input type="submit"
                             className="inputSubmit"
                             id="outlined-button-file"
@@ -153,8 +168,8 @@ export default reduxForm({
     
 }) (connect((state,ownProps)=>{
     return{
-        loading: state[moduleName].loading,
-        loaded: state[moduleName].loaded,
-        error: state[moduleName].error,
-        job: state[moduleName].entities.get(ownProps.id)
+        loading: state[moduleJobs].loading,
+        loaded: state[moduleJobs].loaded,
+        error: state[moduleJobs].error,
+        job: state[moduleJobs].entities.get(ownProps.id)
 }})(withStyles(styles)(Job)))

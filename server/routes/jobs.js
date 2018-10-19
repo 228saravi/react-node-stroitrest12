@@ -21,20 +21,20 @@ exports.post= async function (ctx,next) {
     //   email: ctx.state.user.email
     // };
     await Jobs.create(ctx.request.body).then((resolve)=>{
-        ctx.body = {jobs: resolve};
+        ctx.body = {jobs: resolve}
     }).catch((e)=>{
-        ctx.status = 400;
-        ctx.body = {error: e};
+        ctx.status = 400
+        ctx.body = {error: e}
   
     })
 }
 exports.put= async function (ctx,next) {
-    await passport.authenticate('jwt', {session: false})(ctx, next);
+    await passport.authenticate('jwt', {session: false})(ctx, next)
 
     if (!ctx.state.user) {
-      ctx.status = 400;
-      ctx.body = {error: 'invalid credentials'};
-      return;
+      ctx.status = 400
+      ctx.body = {error: 'invalid credentials'}
+      return
     }
   
     // ctx.body = {
@@ -42,11 +42,18 @@ exports.put= async function (ctx,next) {
     //   email: ctx.state.user.email
     // };
     console.log(ctx.request.body)
-    await Jobs.findByIdAndUpdate(ctx.request.body.id,ctx.request.body)
-        .then(resolve=>{ctx.body={job:resolve}},
+    await Jobs.findByIdAndUpdate({_id:ctx.request.body._id},ctx.request.body)
+        .then(resolve=>{
+            if (resolve.nModified = 0) {
+                ctx.status = 400;
+                ctx.body = {error: reject}
+                return;
+            }
+            ctx.body={job:ctx.request.body} 
+        },
             reject=>{
                 ctx.status = 400;
-                ctx.body = {error: reject};
+                ctx.body = {error: reject}
             })
 }
 exports.delete= async function (ctx,next) {

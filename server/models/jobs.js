@@ -9,9 +9,9 @@ const jobsSchema = new mongoose.Schema({
         type:Number,
         min:0
     },
-    Requirements:[String],
-    Duties:[String],
-    Сonditions:[String]
+    Requirements:String,
+    Duties:String,
+    Сonditions:String
 
 })
 

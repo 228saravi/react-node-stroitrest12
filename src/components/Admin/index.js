@@ -13,6 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Jobs from './Jobs'
 import Job from './Job'
 import {updateJobs} from '../../../redux-stores/duck/jobs';
+import {moduleName as moduleToken} from '../../../redux-stores/duck/auth'
 import {connect} from 'react-redux';
 
 import SendIcon from '@material-ui/icons/Send'
@@ -112,7 +113,10 @@ class index extends Component {
     }
     c
     handleSubmitJob = (value) => {console.log('-------------------',value)
-         this.props.updateJobs(value)}
+         this.props.updateJobs(value,this.props.authorized)}
 }
 
-export default connect(null,{updateJobs})(withStyles(styles)(index))
+export default connect(state=>{
+    return{
+        authorized: state[moduleToken].token
+}},{updateJobs})(withStyles(styles)(index))

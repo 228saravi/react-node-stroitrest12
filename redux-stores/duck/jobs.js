@@ -68,7 +68,7 @@ export function reduserJobs (state = new ReducerRecord(), action){
                 .set('loading', false)
                 .set('loaded', true)
                 .set('error', null)
-                .setIn(['entities',payload._id],new JobRecord(payload));
+                .setIn(['entities',payload.job._id],new JobRecord(payload.job));
         case JOB_UPDATE_ERROR:
             return state
                 .set('loading', false)
@@ -91,17 +91,20 @@ export function loadListJobs(){
         type: JOBS_LIST_LOADING_REQUEST
     }
 }
-export function updateJobs(value){
+export function updateJobs(value,token){
     return{
         type: JOB_UPDATE_REQUEST,
-        payload:value
+        payload:value,
+        token:token
     }
 }
 
 function createDataChanleJobsUpdate(action){
     return eventChannel(emit=>{
         const xhr = new XMLHttpRequest()
-        xhr.open('post', '/jobs', true)
+        xhr.open('put', '/jobs', true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('authorization', action.token)
         xhr.onload = (e) => {
             emit({
                 type: JOB_UPDATE_SUCCESS,
@@ -146,12 +149,16 @@ function createDataChanleJobsLoad(action){
 
 function * sagaActionCreate(REQUEST, SUCCESS, ERROR, CHANLE){
     while(true){
+        console.log('----------',1)
         const action_ =yield take(REQUEST)
+        console.log('----------',2)
         const ajaxDataChanel = yield call(CHANLE,action_)
+        console.log('----------',3)
         while(true){
             let action = yield take(ajaxDataChanel)
             try {
                 if(action.type == SUCCESS){
+                    console.log(action.payload)
                     yield put({
                         type: SUCCESS,
                         payload: action.payload
@@ -161,6 +168,7 @@ function * sagaActionCreate(REQUEST, SUCCESS, ERROR, CHANLE){
                         type: ERROR,
                         payload: action.payload})
                 }
+                break;
 
                 
             } catch (error) {

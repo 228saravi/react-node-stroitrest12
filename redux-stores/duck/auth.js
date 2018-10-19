@@ -73,12 +73,16 @@ export const addSingInSaga = function * () {
                     yield put({
                         type: SING_IN_SUCCESS,
                         payload: action.payload
-                })}
+                    })
+                    break;
+                }
                 else if(action.type = SING_IN_ERROR){
                     yield put({
                         type: SING_IN_ERROR,
                         payload: action.error
-                })}
+                    })
+                break;
+                }
             } catch (error) {
                 yield put({
                     type: SING_IN_ERROR,
