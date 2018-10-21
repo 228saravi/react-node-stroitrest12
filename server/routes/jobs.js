@@ -3,7 +3,7 @@ const passport = require('koa-passport');
 exports.get = async function(ctx, next) {
 	await Jobs.find().then(result => ctx.body=result,
 		reject=>{
-            ctx.status = 400
+            ctx.status = 200
             ctx.body = {error: reject}
         })
 };
@@ -32,7 +32,7 @@ exports.put= async function (ctx,next) {
     await passport.authenticate('jwt', {session: false})(ctx, next)
 
     if (!ctx.state.user) {
-      ctx.status = 400
+      ctx.status = 200
       ctx.body = {error: 'invalid credentials'}
       return
     }
@@ -52,7 +52,7 @@ exports.put= async function (ctx,next) {
             ctx.body={job:ctx.request.body} 
         },
             reject=>{
-                ctx.status = 400;
+                ctx.status = 200;
                 ctx.body = {error: reject}
             })
 }
@@ -60,7 +60,7 @@ exports.delete= async function (ctx,next) {
     await passport.authenticate('jwt', {session: false})(ctx, next);
 
     if (!ctx.state.user) {
-      ctx.status = 400;
+      ctx.status = 200;
       ctx.body = {error: 'invalid credentials'};
       return;
     }
@@ -69,11 +69,23 @@ exports.delete= async function (ctx,next) {
     //   private: 'top most secret info',
     //   email: ctx.state.user.email
     // };
+    
     console.log(ctx.request.body)
-    await Jobs.findByIdAndDelete(ctx.request.body.id)
-        .then(resolve=>{ctx.body={job:resolve}},
+    await Jobs.findByIdAndDelete(ctx.request.body._id)
+        .then(resolve=>{
+            if(resolve!=null)
+                ctx.body={
+                job:resolve
+                }
+            else
+            {
+                ctx.status = 200
+                ctx.body = {error: 'error id'}
+            }
+                
+    },
             reject=>{
-                ctx.status = 400;
+                ctx.status = 200;
                 ctx.body = {error: reject};
             })
 }

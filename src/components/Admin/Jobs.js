@@ -10,12 +10,13 @@ import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import CachedIcon from '@material-ui/icons/Cached'
 import AddIcon from '@material-ui/icons/Add'
+import {moduleName as moduleToken} from '../../../redux-stores/duck/auth'
 
 import {mapToArr} from '../../../redux-stores/duck/utils'
 import Loader from '../common/Loader'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {loadListJobs, moduleName} from '../../../redux-stores/duck/jobs'
+import {loadListJobs, deleteJobs, moduleName} from '../../../redux-stores/duck/jobs'
 
 const styles = theme=>({
     root:{
@@ -55,7 +56,7 @@ class Jobs extends Component {
         if (!loaded && !loading) loadListJobs()
     }
     render() {
-        const { jobs, loading, classes } = this.props
+        const { jobs, loading, classes, deleteJobs, authorized } = this.props
         if (loading) return <Loader/>
         const articleElements =jobs.map(jobs =>(
         <Card className={classes.card} key={jobs._id}>
@@ -74,7 +75,7 @@ class Jobs extends Component {
                     </Link>
                     <CachedIcon className={classes.rightIcon} />
                 </Button>
-                <Button size="small" variant="contained" color="secondary" className={classes.button}>
+                <Button size="small" variant="contained" color="secondary" className={classes.button} onClick={()=>{deleteJobs(jobs._id, authorized)}}>
                     Delete
                     <DeleteIcon className={classes.rightIcon} />
                 </Button>
@@ -88,9 +89,6 @@ class Jobs extends Component {
                     <AddIcon />
                 </Button>
                 {articleElements}
-                <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
-                    <AddIcon />
-                </Button>
             </div>
         )
     
@@ -101,5 +99,6 @@ export default connect(state=>{
     return{
         loading: state[moduleName].loading,
         loaded: state[moduleName].loaded,
-        jobs: mapToArr(state[moduleName].entities)
-}},{loadListJobs})(withStyles(styles)(Jobs));
+        jobs: mapToArr(state[moduleName].entities),
+        authorized: state[moduleToken].token
+}},{loadListJobs,deleteJobs})(withStyles(styles)(Jobs));

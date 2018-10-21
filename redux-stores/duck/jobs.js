@@ -36,6 +36,10 @@ export const JOB_UPDATE_REQUEST = `${myApp}/${moduleName}/JOB_UPDATE_REQUEST`
 export const JOB_UPDATE_SUCCESS = `${myApp}/${moduleName}/JOB_UPDATE_SUCCESS`
 export const JOB_UPDATE_ERROR = `${myApp}/${moduleName}/JOB_UPDATE_ERROR`
 
+export const JOB_DELETE_REQUEST = `${myApp}/${moduleName}/JOB_DELETE_REQUEST`
+export const JOB_DELETE_SUCCESS = `${myApp}/${moduleName}/JOB_DELETE_SUCCESS`
+export const JOB_DELETE_ERROR = `${myApp}/${moduleName}/JOB_DELETE_ERROR`
+
 ///reducer start
 
 export function reduserJobs (state = new ReducerRecord(), action){
@@ -74,7 +78,23 @@ export function reduserJobs (state = new ReducerRecord(), action){
                 .set('loading', false)
                 .set('loaded', false)
                 .set('error', payload)
-            
+         //////////delete
+         case JOB_DELETE_REQUEST:
+            return state
+                .set('loading', true)
+                .set('loaded', false)
+                .set('error', null)
+        case JOB_DELETE_SUCCESS:
+            return state
+                .set('loading', false)
+                .set('loaded', true)
+                .set('error', null)
+                .deleteIn(['entities',payload.job._id]);
+        case JOB_DELETE_ERROR:
+            return state
+                .set('loading', false)
+                .set('loaded', false)
+                .set('error', payload)   
     
         default:
             return state
@@ -91,6 +111,15 @@ export function loadListJobs(){
         type: JOBS_LIST_LOADING_REQUEST
     }
 }
+
+export function deleteJobs(value,token){
+    return{
+        type: JOB_DELETE_REQUEST,
+        payload:value,
+        token:token
+    }
+}
+
 export function updateJobs(value,token){
     return{
         type: JOB_UPDATE_REQUEST,
@@ -142,18 +171,40 @@ function createDataChanleJobsLoad(action){
             })
             emit(END)
         }
-        xhr.send()
+        xhr.send(JSON.stringify(action.payload))
+        return () => {} 
+    })
+}
+
+function createDataChanleJobsDelete(action){
+    return eventChannel(emit=>{
+        const xhr = new XMLHttpRequest()
+        xhr.open('delete', '/jobs', true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.setRequestHeader('authorization', action.token)
+        xhr.onload = (e) => {
+            emit({
+                type: JOB_DELETE_SUCCESS,
+                payload: JSON.parse(xhr.responseText)
+            }) 
+            emit(END)
+        }
+        xhr.onerror = (e) => {
+            emit({
+                type: JOB_DELETE_ERROR,
+                payload: e
+            })
+            emit(END)
+        }
+        xhr.send(JSON.stringify({_id:action.payload}))
         return () => {} 
     })
 }
 
 function * sagaActionCreate(REQUEST, SUCCESS, ERROR, CHANLE){
     while(true){
-        console.log('----------',1)
         const action_ =yield take(REQUEST)
-        console.log('----------',2)
         const ajaxDataChanel = yield call(CHANLE,action_)
-        console.log('----------',3)
         while(true){
             let action = yield take(ajaxDataChanel)
             try {
@@ -194,7 +245,12 @@ export const saga = function * () {
             JOB_UPDATE_REQUEST,
             JOB_UPDATE_SUCCESS,
             JOB_UPDATE_ERROR,
-            createDataChanleJobsUpdate)
+            createDataChanleJobsUpdate),
+        sagaActionCreate (
+            JOB_DELETE_REQUEST,
+            JOB_DELETE_SUCCESS,
+            JOB_DELETE_ERROR,
+            createDataChanleJobsDelete)
     ])
 }
 
